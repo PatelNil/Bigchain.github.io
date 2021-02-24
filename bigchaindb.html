@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<body>
+    <button onclick="send()">Click me</button>
+    <div id='result'></div>
+<script>
+    function send(){
+        const info = {
+  "asset": {
+    "data": {
+      "msg": "Hello BigchainDB!"
+    }
+  },
+  "id": "4957744b3ac54434b8270f2c854cc1040228c82ea4e72d66d2887a4d3e30b317",
+  "inputs": [
+    {
+      "fulfillment": "pGSAIDE5i63cn4X8T8N1sZ2mGkJD5lNRnBM4PZgI_zvzbr-cgUCy4BR6gKaYT-tdyAGPPpknIqI4JYQQ-p2nCg3_9BfOI-15vzldhyz-j_LZVpqAlRmbTzKS-Q5gs7ZIFaZCA_UD",
+      "fulfills": null,
+      "owners_before": [
+        "4K9sWUMFwTgaDGPfdynrbxWqWS6sWmKbZoTjxLtVUibD"
+      ]
+    }
+  ],
+  "metadata": {
+    "sequence": 0
+  },
+  "operation": "CREATE",
+  "outputs": [
+    {
+      "amount": "1",
+      "condition": {
+        "details": {
+          "public_key": "4K9sWUMFwTgaDGPfdynrbxWqWS6sWmKbZoTjxLtVUibD",
+          "type": "ed25519-sha-256"
+        },
+        "uri": "ni:///sha-256;PNYwdxaRaNw60N6LDFzOWO97b8tJeragczakL8PrAPc?fpt=ed25519-sha-256&cost=131072"
+      },
+      "public_keys": [
+        "4K9sWUMFwTgaDGPfdynrbxWqWS6sWmKbZoTjxLtVUibD"
+      ]
+    }
+  ],
+  "version": "2.0"
+}
+
+    async function postData(url = '', data = {}) {
+  // Default options are marked with *
+  const response = await fetch(url, {
+    method: 'POST', // *GET, POST, PUT, DELETE, etc.
+    // include, *same-origin, omit
+    headers: {
+      'Content-Type': 'application/json'
+      // 'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    redirect: 'follow', // manual, *follow, error
+    referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+    body: JSON.stringify(data) // body data type must match "Content-Type" header
+  });
+  return response.json(); // parses JSON response into native JavaScript objects
+}
+
+postData('https://localhost:9984/api/v1/transactions', info)
+  .then(data => {
+    console.log(data); // JSON data parsed by `data.json()` call
+  });
+}
+</script>
+</body>
+</html>
